@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoSME</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
+    <!-- Include Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <!--font awsome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <!-- Logo Section -->
+        <div class="horizontal-logo">
+          <img src="./Images/GeoMSME - Horizontal Logo.png" alt="GeoSME Logo" />
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Features</a>
+          <a href="#">Businesses</a>
+          <a href="#">Team</a>
+          <a href="#">Contact</a>
+        </nav>
+
+        <!-- Auth Buttons -->
+        <div class="nav-auth">
+          <a href="#" class="login-btn">
+            <i class="fa-solid fa-right-to-bracket"></i> Login
+          </a>
+          <a href="#" class="signup-btn">
+            <i class="fa-solid fa-user-plus"></i> Sign Up
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!--Hero Section-->
+      <div class="hero-section">
+        <div id="map" class="map"></div>
+        <!-- Ensure the ID matches the JS code -->
+        <div class="hero-content">
+          <h1 id="h1-hero">Empowering SMEs with Smart Location Insights</h1>
+          <p>
+            GeoSME Batangas is a GIS-powered platform designed to enhance SME
+            visibility, accessibility, and market insights in Batangas Province.
+            We bridge businesses and consumers, driving economic growth.
+          </p>
+          <!-- Call-to-Action Button -->
+          <a href="#explore" class="explore-btn">Explore </a>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>Why Choose GeoSME?</h2>
+      <p>
+        Unlike standard maps, GeoSME provides actionable insights and strategic
+        tools for SME growth, making business discovery seamless and
+        data-driven.
+      </p>
+      <h3>Who Benefits?</h3>
+      <ul>
+        <li>
+          <b>Entrepreneur:</b> Gain visibility, analyze trends, and identify
+          strategic locations.
+        </li>
+        <li><b>Consumers</b> - Easily find and connect with businesses.</li>
+      </ul>
+      <hr />
+      <h2>Core Features</h2>
+      <h3><b>SME Directory</b></h3>
+      <ul>
+        <li>
+          Categorized Listings - Businesses sorted by industry, ownership, and
+          status.
+        </li>
+        <li>SME Registration - Owners can claim and manage profiles.</li>
+      </ul>
+      <h3><b>Business Reviews & Ratings</b></h3>
+      <ul>
+        <li>Consumer Feedback - Ratings and reviews for informed decisions.</li>
+        <ul>
+          <li>Sentiment Tracking - Insights for service improvement.</li>
+        </ul>
+      </ul>
+      <h3><b>Advanced Search & Insights</b></h3>
+      <ul>
+        <li>Smart Search - Filter by type, location, and competition.</li>
+        <li>Market Analytics - Identify business trends and opportunities.</li>
+      </ul>
+      <h3><b>GIS Business Intelligence </b></h3>
+      <ul>
+        <li>Heatmaps - View SME density and underserved areas.</li>
+        <li>Competitor Mapping - Locate market gaps.</li>
+        <li>Trend Analytics - Track consumer interest.</li>
+      </ul>
+      <h3><b>Navigation & Recommendations</b></h3>
+      <ul>
+        <li>Optimized Routes - Find the shortest path to businesses.</li>
+        <li>Nearby Services - Personalized business suggestions.</li>
+      </ul>
+      <hr />
+    </main>
+
+    <!-- Team Section -->
+    <section class="team-section">
+      <h3>Meet Our Team</h3>
+      <div class="team-members">
+        <div class="member">
+          <img src="Images/Sample.png" alt="Jerwin Louise Peria" />
+          <h4>Jerwin Louise Peria</h4>
+          <p>Lead Developer & System Architect</p>
+        </div>
+        <div class="member">
+          <img src="Images/Sample.png" alt="Gea Cuevas" />
+          <h4>Gea Cuevas</h4>
+          <p>UI/UX Designer & Documentation Specialist</p>
+        </div>
+        <div class="member">
+          <img src="Images/Sample.png" alt="Riana Herlaine Carandang" />
+          <h4>Riana Herlaine Carandang</h4>
+          <p>Project Manager & Business Analyst</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact Us</a>
+        </div>
+
+        <!-- Social Media Icons -->
+        <ul class="footer-socials">
+          <li>
+            <a href="https://facebook.com" target="_blank">
+              <i class="fab fa-facebook-f icon"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com" target="_blank">
+              <i class="fab fa-twitter icon"></i>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:contact@geomsme.com">
+              <i class="fab fa-google icon"></i>
+            </a>
+          </li>
+        </ul>
+
+        <p class="footer-text">© 2025 GeoMSME. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
