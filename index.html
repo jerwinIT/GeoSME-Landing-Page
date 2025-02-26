@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GeoSME - Smart Location Insights</title>
     <link rel="stylesheet" href="styles.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <!-- Leaflet CSS -->
     <link
       rel="stylesheet"
@@ -65,11 +67,11 @@
       <div class="container">
         <div class="hero-content">
           <span class="badge">GIS-Powered Business Intelligence</span>
-          <h1>
+          <h1 id="hero-title">
             Empowering SMEs with
             <span class="highlight">Smart Location Insights</span>
           </h1>
-          <p>
+          <p id="subtitle">
             GeoSME Batangas bridges businesses and consumers, driving economic
             growth through advanced geospatial analytics.
           </p>
@@ -140,10 +142,18 @@
 
           <div class="column">
             <div class="image-wrapper">
-              <img
-                src="https://via.placeholder.com/800x600"
-                alt="GeoSME Dashboard"
-              />
+              <svg width="800" height="600">
+                <text
+                  x="50%"
+                  y="50%"
+                  font-size="20"
+                  fill="#666"
+                  text-anchor="middle"
+                  dy=".3em"
+                >
+                  No Image
+                </text>
+              </svg>
             </div>
           </div>
         </div>
@@ -162,10 +172,9 @@
           </p>
         </div>
 
-        <div class="cards">
-          <div class="card">
-            <div class="card-line"></div>
-            <div class="card-icon">
+        <div class="feature-item" data-animate="left">
+          <div class="feature-text">
+            <div class="feature-icon">
               <i class="fas fa-map-pin"></i>
             </div>
             <h3>SME Directory</h3>
@@ -173,14 +182,27 @@
               Categorized listings of businesses sorted by industry, ownership,
               and status with easy registration.
             </p>
-            <a href="#" class="link"
-              >Learn more <i class="fas fa-chevron-right"></i
-            ></a>
           </div>
+          <div class="feature-image">
+            <svg width="300" height="300">
+              <text
+                x="50%"
+                y="50%"
+                font-size="20"
+                fill="#666"
+                text-anchor="middle"
+                dy=".3em"
+              >
+                No Image
+              </text>
+            </svg>
+          </div>
+        </div>
+        <hr />
 
-          <div class="card">
-            <div class="card-line"></div>
-            <div class="card-icon">
+        <div class="feature-item" data-animate="right">
+          <div class="feature-text">
+            <div class="feature-icon">
               <i class="fas fa-star"></i>
             </div>
             <h3>Business Reviews & Ratings</h3>
@@ -188,14 +210,27 @@
               Consumer feedback with ratings and reviews for informed decisions
               and service improvement.
             </p>
-            <a href="#" class="link"
-              >Learn more <i class="fas fa-chevron-right"></i
-            ></a>
           </div>
+          <div class="feature-image">
+            <svg width="300" height="300">
+              <text
+                x="50%"
+                y="50%"
+                font-size="20"
+                fill="#666"
+                text-anchor="middle"
+                dy=".3em"
+              >
+                No Image
+              </text>
+            </svg>
+          </div>
+        </div>
+        <hr />
 
-          <div class="card">
-            <div class="card-line"></div>
-            <div class="card-icon">
+        <div class="feature-item" data-animate="left">
+          <div class="feature-text">
+            <div class="feature-icon">
               <i class="fas fa-search"></i>
             </div>
             <h3>Advanced Search & Insights</h3>
@@ -203,14 +238,27 @@
               Smart search filters by type, location, and competition with
               market analytics to identify trends.
             </p>
-            <a href="#" class="link"
-              >Learn more <i class="fas fa-chevron-right"></i
-            ></a>
           </div>
+          <div class="feature-image">
+            <svg width="300" height="300">
+              <text
+                x="50%"
+                y="50%"
+                font-size="20"
+                fill="#666"
+                text-anchor="middle"
+                dy=".3em"
+              >
+                No Image
+              </text>
+            </svg>
+          </div>
+        </div>
+        <hr />
 
-          <div class="card">
-            <div class="card-line"></div>
-            <div class="card-icon">
+        <div class="feature-item" data-animate="right">
+          <div class="feature-text">
+            <div class="feature-icon">
               <i class="fas fa-chart-bar"></i>
             </div>
             <h3>GIS Business Intelligence</h3>
@@ -218,14 +266,27 @@
               Heatmaps for SME density, competitor mapping to locate market
               gaps, and trend analytics.
             </p>
-            <a href="#" class="link"
-              >Learn more <i class="fas fa-chevron-right"></i
-            ></a>
           </div>
+          <div class="feature-image">
+            <svg width="300" height="300">
+              <text
+                x="50%"
+                y="50%"
+                font-size="20"
+                fill="#666"
+                text-anchor="middle"
+                dy=".3em"
+              >
+                No Image
+              </text>
+            </svg>
+          </div>
+        </div>
+        <hr />
 
-          <div class="card">
-            <div class="card-line"></div>
-            <div class="card-icon">
+        <div class="feature-item" data-animate="left">
+          <div class="feature-text">
+            <div class="feature-icon">
               <i class="fas fa-compass"></i>
             </div>
             <h3>Navigation & Recommendations</h3>
@@ -233,24 +294,20 @@
               Optimized routes to find the shortest path to businesses and
               personalized service suggestions.
             </p>
-            <a href="#" class="link"
-              >Learn more <i class="fas fa-chevron-right"></i
-            ></a>
           </div>
-
-          <div class="card">
-            <div class="card-line"></div>
-            <div class="card-icon">
-              <i class="fas fa-users"></i>
-            </div>
-            <h3>Community Engagement</h3>
-            <p>
-              Connect with other business owners, share insights, and
-              participate in local business events.
-            </p>
-            <a href="#" class="link"
-              >Learn more <i class="fas fa-chevron-right"></i
-            ></a>
+          <div class="feature-image">
+            <svg width="300" height="300">
+              <text
+                x="50%"
+                y="50%"
+                font-size="20"
+                fill="#666"
+                text-anchor="middle"
+                dy=".3em"
+              >
+                No Image
+              </text>
+            </svg>
           </div>
         </div>
       </div>
@@ -276,10 +333,18 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-linkedin-in"></i></a>
               </div>
-              <img
-                src="https://via.placeholder.com/300x400"
-                alt="Jerwin Louise Peria"
-              />
+              <svg width="300" height="300">
+                <text
+                  x="50%"
+                  y="50%"
+                  font-size="20"
+                  fill="#666"
+                  text-anchor="middle"
+                  dy=".3em"
+                >
+                  No Image
+                </text>
+              </svg>
             </div>
             <h3>Jerwin Louise Peria</h3>
             <p>Lead Developer & System Architect</p>
@@ -292,7 +357,18 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-linkedin-in"></i></a>
               </div>
-              <img src="https://via.placeholder.com/300x400" alt="Gea Cuevas" />
+              <svg width="300" height="300">
+                <text
+                  x="50%"
+                  y="50%"
+                  font-size="20"
+                  fill="#666"
+                  text-anchor="middle"
+                  dy=".3em"
+                >
+                  No Image
+                </text>
+              </svg>
             </div>
             <h3>Gea Cuevas</h3>
             <p>UI/UX Designer & Documentation Specialist</p>
@@ -305,10 +381,18 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-linkedin-in"></i></a>
               </div>
-              <img
-                src="https://via.placeholder.com/300x400"
-                alt="Riana Herlaine Carandang"
-              />
+              <svg width="300" height="300">
+                <text
+                  x="50%"
+                  y="50%"
+                  font-size="20"
+                  fill="#666"
+                  text-anchor="middle"
+                  dy=".3em"
+                >
+                  No Image
+                </text>
+              </svg>
             </div>
             <h3>Riana Herlaine Carandang</h3>
             <p>Project Manager & Business Analyst</p>

@@ -80,3 +80,19 @@ function initMap() {
     attribution: "&copy; OpenStreetMap contributors",
   }).addTo(map);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const features = document.querySelectorAll(".feature-item");
+
+  const revealOnScroll = () => {
+    features.forEach((feature) => {
+      const rect = feature.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.85) {
+        feature.classList.add("show");
+      }
+    });
+  };
+
+  window.addEventListener("scroll", revealOnScroll);
+  revealOnScroll();
+});
