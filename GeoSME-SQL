@@ -1,0 +1,163 @@
+-- Database Setup
+-- This database is specifically created to serve Batangas SMEs, providing features for business location mapping, competitor analysis, and user interaction.
+CREATE DATABASE geosme_batangas;
+\c geosme_batangas;
+
+-- Enable PostGIS Extension
+CREATE EXTENSION postgis;
+
+-- ENUM Types for User Roles and Business Status
+CREATE TYPE user_role_enum AS ENUM ('entrepreneur', 'consumer', 'admin');
+CREATE TYPE business_status_enum AS ENUM ('Active', 'Inactive', 'Pending');
+
+-- Users Table
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    user_role user_role_enum,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- SME Table with Location Data
+CREATE TABLE smes (
+    sme_id SERIAL PRIMARY KEY,
+    business_name VARCHAR(255) NOT NULL,
+    business_type VARCHAR(100) NOT NULL,
+    owner_id INT REFERENCES users(user_id),
+    contact_number VARCHAR(50),
+    business_status business_status_enum,
+    registration_date DATE,
+    location GEOMETRY(Point, 4326),
+    description TEXT,
+    verification_status BOOLEAN DEFAULT FALSE,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Reviews and Ratings Table
+CREATE TABLE reviews (
+    review_id SERIAL PRIMARY KEY,
+    sme_id INT REFERENCES smes(sme_id),
+    user_id INT REFERENCES users(user_id),
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    review_text TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Business Category Table
+CREATE TABLE business_categories (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) UNIQUE NOT NULL
+);
+
+-- SME Categories Junction Table
+CREATE TABLE sme_categories (
+    sme_id INT REFERENCES smes(sme_id),
+    category_id INT REFERENCES business_categories(category_id),
+    PRIMARY KEY (sme_id, category_id)
+);
+
+-- Favourites Table
+CREATE TABLE favourites (
+    favourite_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
+    sme_id INT REFERENCES smes(sme_id),
+    added_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (user_id, sme_id)
+);
+
+-- Search Trends Table
+CREATE TABLE search_trends (
+    trend_id SERIAL PRIMARY KEY,
+    search_keyword VARCHAR(100),
+    search_count INT,
+    searched_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Location Analytics Table
+CREATE TABLE location_analytics (
+    analytic_id SERIAL PRIMARY KEY,
+    sme_id INT REFERENCES smes(sme_id),
+    competitor_density INT,
+    high_demand BOOLEAN,
+    underserved_area BOOLEAN,
+    generated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Route Suggestions Table
+CREATE TABLE route_suggestions (
+    route_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
+    sme_id INT REFERENCES smes(sme_id),
+    start_location GEOMETRY(Point, 4326),
+    end_location GEOMETRY(Point, 4326),
+    distance_km FLOAT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- GiST Index for Spatial Queries
+CREATE INDEX smes_location_gist ON smes USING GIST(location);
+
+-- Automatic Location Analytics Trigger
+CREATE OR REPLACE FUNCTION auto_generate_analytics()
+RETURNS TRIGGER AS $$
+DECLARE
+    competitor_count INT;
+BEGIN
+    SELECT COUNT(*) INTO competitor_count
+    FROM smes
+    WHERE business_type = NEW.business_type
+      AND is_deleted = FALSE
+      AND ST_DWithin(location, NEW.location, 1000);
+
+    INSERT INTO location_analytics (sme_id, competitor_density, high_demand, underserved_area, generated_at)
+    VALUES (NEW.sme_id, competitor_count, FALSE, competitor_count < 3, CURRENT_TIMESTAMP);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_auto_analytics
+AFTER INSERT ON smes
+FOR EACH ROW EXECUTE FUNCTION auto_generate_analytics();
+
+-- Search Nearby Businesses Function
+CREATE OR REPLACE FUNCTION search_nearby_businesses(user_lat FLOAT, user_lon FLOAT, user_radius FLOAT, user_type VARCHAR)
+RETURNS TABLE(sme_id INT, business_name VARCHAR, distance FLOAT) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT s.sme_id, s.business_name,
+           ST_Distance(s.location, ST_SetSRID(ST_MakePoint(user_lon, user_lat), 4326)) AS distance
+    FROM smes s
+    WHERE s.business_type = user_type
+      AND s.is_deleted = FALSE
+      AND ST_DWithin(s.location, ST_SetSRID(ST_MakePoint(user_lon, user_lat), 4326), user_radius)
+    ORDER BY distance ASC;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Audit Logs Table
+CREATE TABLE audit_logs (
+    log_id SERIAL PRIMARY KEY,
+    table_name VARCHAR(100),
+    record_id INT,
+    action VARCHAR(50),
+    performed_by INT REFERENCES users(user_id),
+    performed_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Audit Logs Trigger
+CREATE OR REPLACE FUNCTION log_audit()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO audit_logs (table_name, record_id, action, performed_by, performed_at)
+    VALUES (TG_TABLE_NAME, NEW.sme_id, TG_OP, NEW.owner_id, CURRENT_TIMESTAMP);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_audit_insert
+AFTER INSERT OR UPDATE OR DELETE ON smes
+FOR EACH ROW EXECUTE FUNCTION log_audit();
